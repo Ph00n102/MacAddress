@@ -1,0 +1,153 @@
+@page "/macaddress"
+@rendermode InteractiveServer
+@inject HttpClient Http
+
+<h3>MAC Addresses</h3>
+
+<div>
+    <div>
+    
+    @if (macAddresses != null && macAddresses.Any())
+    {
+        @foreach (var mac in macAddresses)
+        {
+            <p>@mac</p>
+        }
+    }
+    <button @onclick="GetMacAddresses">กดดู MacAddresses ของท่าน </button>
+    <br />
+    <br />
+    </div>
+    <div>
+        <p>
+            <label>
+                ชื่อ-นามสกุล: 
+            </label>
+            <input style="width: 350px;" />
+        </p>
+    </div>    
+    <div>    
+        <p>
+            <label>
+                เบอร์โทรศัพท์(ที่ติดต่อได้): 
+                <input style="width: 350px;" />
+            </label>
+        </p>
+    </div>
+    <div>
+        <p>
+            <label>
+                ตำแหน่ง: 
+                <input style="width: 350px;" />
+            </label>
+        </p>
+    </div>
+    <div>
+        <p>
+            <label>
+                กลุ่มงาน: 
+                <input style="width: 350px;" />
+            </label>
+        </p>
+    </div>
+    <div>
+        <p>
+            <label>
+                หน่วยงาน: 
+                <input style="width: 350px;" />
+            </label>
+        </p>
+    </div>
+    <div>
+        <p>
+            <label>
+                1.ท่านเข้าใช้งานโปรแกรมด้วยเครื่องมือใด: 
+            </label>
+        </p>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>-- กรุณาเลือก --</option>
+                <option value="1">Notebook</option>
+                <option value="2">Tablet/iPad</option>
+                <option value="3">คอมพิวเตอร์ส่วนตัว</option>
+                <option value="4">คอมบริจาค</option>
+                <option value="5">คอมเช่า</option>
+                <option value="6">ใช้คอมพิวเตอร์จากบ้าน</option>
+            </select>
+    </div>
+    <div>
+        <p>
+            <label>
+                2.โปรแกรมที่ภายในหน่วยงานท่านมีการใช้งาน: 
+            </label>
+        </p>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">HosXp</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">KPHIS</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">Lab</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">พัสดุ</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">โปรแกรมภายใน</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">PACS</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">Authen</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">การเงิน</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">Software Dev</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">google</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">Microsoft Office</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">Facebook</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">Youtube</label>
+            </div>
+    </div>
+</div> 
+<div>
+    <p>
+        <label>
+            3.หมายเลข MAC Address ที่เครื่องของท่าน: 
+            <input style="width: 350px;" />
+        </label>
+    </p>
+</div>
+
+@code {
+    private List<string> macAddresses;
+
+    private async Task GetMacAddresses()
+    {
+        macAddresses = await Http.GetFromJsonAsync<List<string>>("http://localhost:5094/api/Hos/GetMacAddress/macaddress");
+    }
+}

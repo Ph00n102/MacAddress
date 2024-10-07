@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MacAddress", "MacAddress.csproj", "{F7C1405D-23C8-4CB2-9FEB-E51E01F7D70B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7C1405D-23C8-4CB2-9FEB-E51E01F7D70B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7C1405D-23C8-4CB2-9FEB-E51E01F7D70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7C1405D-23C8-4CB2-9FEB-E51E01F7D70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7C1405D-23C8-4CB2-9FEB-E51E01F7D70B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DE0761B-B9EB-4CCD-B7D8-62476864DFFC}
+	EndGlobalSection
+EndGlobal
