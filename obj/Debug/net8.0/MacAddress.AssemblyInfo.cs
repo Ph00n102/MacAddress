@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MacAddress")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+886c9817b54f51183cd54cf6ee5937ce30cce2a5")]
 [assembly: System.Reflection.AssemblyProductAttribute("MacAddress")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MacAddress")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

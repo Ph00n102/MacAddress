@@ -1,4 +1,6 @@
 using MacAddress.Components;
+using MacAddress.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8189") });
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("sampleDb"));});
 
 var app = builder.Build();
 
