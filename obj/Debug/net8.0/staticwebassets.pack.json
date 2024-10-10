@@ -21,6 +21,34 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "D:\\MacAddress\\wwwroot\\images\\m1.jpg",
+      "PackagePath": "staticwebassets\\images\\m1.jpg"
+    },
+    {
+      "Id": "D:\\MacAddress\\wwwroot\\images\\m2.jpg",
+      "PackagePath": "staticwebassets\\images\\m2.jpg"
+    },
+    {
+      "Id": "D:\\MacAddress\\wwwroot\\images\\m3.jpg",
+      "PackagePath": "staticwebassets\\images\\m3.jpg"
+    },
+    {
+      "Id": "D:\\MacAddress\\wwwroot\\images\\m4.jpg",
+      "PackagePath": "staticwebassets\\images\\m4.jpg"
+    },
+    {
+      "Id": "D:\\MacAddress\\wwwroot\\images\\m5.jpg",
+      "PackagePath": "staticwebassets\\images\\m5.jpg"
+    },
+    {
+      "Id": "D:\\MacAddress\\wwwroot\\images\\m6.jpg",
+      "PackagePath": "staticwebassets\\images\\m6.jpg"
+    },
+    {
+      "Id": "D:\\MacAddress\\wwwroot\\images\\m7.jpg",
+      "PackagePath": "staticwebassets\\images\\m7.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MacAddress.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

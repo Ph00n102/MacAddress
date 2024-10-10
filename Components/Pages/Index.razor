@@ -1,0 +1,126 @@
+@page "/index"
+@using MacAddress.Models
+@using MacAddress.Services
+@inject IMacService  macService
+@inject IJSRuntime jsRuntime
+
+<a href="/macaddress/add" class="btn btn-outline-dark my-2">กรุณากรอกข้อมูล</a>
+<div class="row">
+    <div class="col-md">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width:200px;">ชื่อ-นามสกุล</th>
+                    <th style="width:200px;">ตำแหน่ง</th>
+                    <th style="width:200px;">กลุ่มงาน</th>
+                    <th style="width:200px;">หน่วยงาน</th>
+                    <th style="width:200px;">1.ท่านเข้าใช้งานโปรแกรมด้วยเครื่องมือใด</th>
+                    <th style="width:200px;">2.โปรแกรมที่ภายในหน่วยงานท่านมีการใช้งาน</th>
+                    <th style="width:200px;">3.หมายเลข MAC Address ที่เครื่องของท่าน</th>
+                    <th style="width:100px;">แก้ไข</th>
+                    @* <th style="width: 100px;">ลบ</th> *@
+                </tr>
+            </thead>
+            <tbody>
+            @foreach(var macAdd in macAddresses)
+            {
+                
+                <tr>
+                    <td>@macAdd.Name</td>
+                    <td>@macAdd.Position</td>
+                    <td>@macAdd.WorkingGroup</td>
+                    <td>@macAdd.Agency</td>
+                    <td>@macAdd.DeviceProgram</td>
+                    <td> 
+                        @if (macAdd.HosXp == true)
+                        {
+                            <p>-&nbsp;HosXp</p>
+                        }
+                        @if (macAdd.KPHIS == true)
+                        {
+                            <p>-&nbsp;KPHIS</p>
+                        }
+                        @if (macAdd.Lab == true)
+                        {
+                            <p>-&nbsp;Lab</p>
+                        }
+                        @if (macAdd.Parcel == true)
+                        {
+                            <p>-&nbsp;พัสดุ</p>
+                        }
+                        @if (macAdd.InternalProgram == true)
+                        {
+                            <p>-&nbsp;โปรแกรมภายใน</p>
+                        }
+                        @if (macAdd.PACS == true)
+                        {
+                            <p>-&nbsp;PACS</p>
+                        }
+                        @if (macAdd.Authen == true)
+                        {
+                            <p>-&nbsp;Authen</p>
+                        }
+                        @if (macAdd.Finance == true)
+                        {
+                            <p>-&nbsp;การเงิน</p>
+                        }
+                        @if (macAdd.SoftwareDev == true)
+                        {
+                            <p>-&nbsp;Software Dev</p>
+                        }
+                        @if (macAdd.Google == true)
+                        {
+                            <p>-&nbsp;Google</p>
+                        }
+                        @if (macAdd.MicrosoftOffice == true)
+                        {
+                            <p>-&nbsp;Microsoft Office</p>
+                        }
+                        @if (macAdd.Facebook == true)
+                        {
+                            <p>-&nbsp;Facebook</p>
+                        }
+                        @if (macAdd.Youtube == true)
+                        {
+                            <p>-&nbsp;Youtube</p>
+                        }
+                        @if (macAdd.ProgramInAgency != "" )
+                        {
+                            <p>@macAdd.ProgramInAgency</p>
+                        }
+                    </td>
+                    <td>@macAdd.MacAdd</td>
+                    <td>
+                            <a href="/macaddress/edit/@macAdd.MacAddId" class="btn btn-success">Edit</a>
+                    </td>
+                    @* <td>
+                            <a class="btn btn-danger" @onclick="async ()=> await Delete(macAdd)">Delete</a>
+                    </td> *@
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private List<MacAddresses> macAddresses = new();
+
+    private async Task Delete(MacAddresses macAddress)
+    {
+        bool confirmed = await jsRuntime.InvokeAsync<bool>("confirm", "Are you sure????");
+        if (confirmed)
+        {
+            if(macService.Delete(macAddress.MacAddId)){
+                macAddresses.Remove(macAddress);
+            }
+
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        macAddresses = macService.GetAll();
+        base.OnInitialized();
+    }
+}

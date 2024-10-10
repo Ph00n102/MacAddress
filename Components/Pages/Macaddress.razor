@@ -1,10 +1,20 @@
-@page "/macaddress"
+@page "/macaddress/add"
+@page "/macaddress/edit/{userId:int}"
+@using MacAddress.Models
+@using MacAddress.Services
 @rendermode InteractiveServer
 @inject HttpClient Http
+@inject IMacService  macService
+@inject NavigationManager navManager
 
-<h3>MAC Addresses</h3>
+<PageTitle>@Title</PageTitle>
 
-<div class="row">
+<h3>@Title</h3>
+
+
+
+
+@* <div class="row">
     <div class="col-sm-4">
         @if (macAddresses != null && macAddresses.Any())
         {
@@ -21,136 +31,187 @@
     </div>
 </div>
     <br />
-    <br />
-<div class="row">
-    <div class="col-sm-4">
-        ชื่อ-นามสกุล :
-    </div>
-    <div class="col-sm-8">
-        <input style="width: 350px;" />
-    </div>
+    <br /> *@
+    
+<div class="row justify-content-center">
+    <EditForm Model="@macaddresses" OnValidSubmit="Save">
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                ชื่อ-นามสกุล :
+            </div>
+            <div class="col-sm-8">
+                <InputText Id="Name" @bind-Value="macaddresses.Name" style="width: 350px;"  />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                ตำแหน่ง : 
+            </div>
+            <div class="col-sm-8" style="height:40px;">
+                <InputText Id="Position" @bind-Value="macaddresses.Position" style="width: 350px;"  />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                กลุ่มงาน : 
+            </div>
+            <div class="col-sm-8" style="height:40px;">
+                <InputText Id="WorkingGroup" @bind-Value="macaddresses.WorkingGroup" style="width: 350px;"  />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                หน่วยงาน : 
+            </div>
+            <div class="col-sm-8" style="height:40px;">
+                <InputText Id="Agency" @bind-Value="macaddresses.Agency" style="width: 350px;"  />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                1.ท่านเข้าใช้งานโปรแกรมด้วยเครื่องมือใด : 
+            </div>
+            <div class="col-sm-8" style="height:40px;">
+                <InputSelect class="form-select" aria-label="Default select example" @bind-Value="macaddresses.DeviceProgram" style="width: 350px;" >
+                    <option selected>-- กรุณาเลือก --</option>
+                    <option value="Notebook">Notebook</option>
+                    <option value="Tablet/iPad">Tablet/iPad</option>
+                    <option value="คอมพิวเตอร์ส่วนตัว">คอมพิวเตอร์ส่วนตัว</option>
+                    <option value="คอมบริจาค">คอมบริจาค</option>
+                    <option value="คอมเช่า">คอมเช่า</option>
+                    <option value="ใช้คอมพิวเตอร์จากบ้าน">ใช้คอมพิวเตอร์จากบ้าน</option>
+                </InputSelect>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                2.โปรแกรมที่ภายในหน่วยงานท่านมีการใช้งาน :
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.HosXp" />
+                <label class="form-check-label" for="check2">HosXp</label>
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.KPHIS" />
+                <label class="form-check-label" for="check2">KPHIS</label>  
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.Lab" />
+                <label class="form-check-label" for="check2">Lab</label>
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.Parcel" />
+                <label class="form-check-label" for="check2">พัสดุ</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.InternalProgram" />
+                <label class="form-check-label" for="check2">โปรแกรมภายใน</label>
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.PACS" />
+                <label class="form-check-label" for="check2">PACS</label>  
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.Authen" />
+                <label class="form-check-label" for="check2">Authen</label>
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.Finance" />
+                <label class="form-check-label" for="check2">การเงิน</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.SoftwareDev" />
+                <label class="form-check-label" for="check2">Software Dev</label>
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.Google" />
+                <label class="form-check-label" for="check2">Google</label>  
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.MicrosoftOffice" />
+                <label class="form-check-label" for="check2">Microsoft Office</label>
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.Facebook" />
+                <label class="form-check-label" for="check2">Facebook</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                <input type="checkbox" @bind-value="macaddresses.Youtube" />
+                <label class="form-check-label" for="check2">Youtube</label>
+            </div>
+            <div class="col-sm-3" style="height:40px;">
+                <label class="form-check-label" for="check2">อื่นๆ</label>
+                <InputText @bind-Value="macaddresses.ProgramInAgency" style="width: 200px;"  />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                3.หมายเลข MAC Address ที่เครื่องของท่าน: 
+            </div>
+            <div class="col-sm-8" style="height:40px;">
+                <InputText Id="MacAdd" @bind-Value="macaddresses.MacAdd" style="width: 350px;"  />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="height:40px;">
+                <button  class="btn btn-secondary">Submit</button>
+            </div>
+        </div>
+        <DataAnnotationsValidator />
+        @* <ValidationSummary /> *@
+    </EditForm>
 </div>
-<div class="row">
-    <div class="col-sm-4">
-        ตำแหน่ง : 
-    </div>
-    <div class="col-sm-8">
-        <input style="width: 350px;" />
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        กลุ่มงาน : 
-    </div>
-    <div class="col-sm-8">
-        <input style="width: 350px;" />
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        หน่วยงาน : 
-    </div>
-    <div class="col-sm-8">
-        <input style="width: 350px;" />
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        1.ท่านเข้าใช้งานโปรแกรมด้วยเครื่องมือใด : 
-    </div>
-    <div class="col-sm-8">
-         <select class="form-select" aria-label="Default select example">
-                <option selected>-- กรุณาเลือก --</option>
-                <option value="1">Notebook</option>
-                <option value="2">Tablet/iPad</option>
-                <option value="3">คอมพิวเตอร์ส่วนตัว</option>
-                <option value="4">คอมบริจาค</option>
-                <option value="5">คอมเช่า</option>
-                <option value="6">ใช้คอมพิวเตอร์จากบ้าน</option>
-            </select>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        2.โปรแกรมที่ภายในหน่วยงานท่านมีการใช้งาน :
-    </div>
-</div>
-<div class="row">
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">HosXp</label>
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">KPHIS</label>  
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">Lab</label>
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">พัสดุ</label>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">โปรแกรมภายใน</label>
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">PACS</label>  
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">Authen</label>
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">การเงิน</label>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">Software Dev</label>
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">google</label>  
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">Microsoft Office</label>
-  </div>
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">Facebook</label>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-3">
-    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-    <label class="form-check-label" for="check2">Youtube</label>
-  </div>
-</div>
-<button @onclick="GetMacAddresses" class="btn btn-secondary">กดดู MacAddresses ของท่าน </button>
-@* <div class="row">
-  <div class="col-sm-3">
-    3.หมายเลข MAC Address ที่เครื่องของท่าน: 
-  </div>
-  <div class="col-sm-8">
-    <input @bind="HosGuid" style="width: 350px;" disabled/>
-  </div>
-</div> *@
 
 @code {
-    public string mac =  new String("");
+    [Parameter]
+    public int UserId { get; set; }
+
+    // Internal field holding checkbox state
+    @* private bool ProgramInAgency = false; *@
+    private bool HosXp;
+    private string message = string.Empty;
+    Models.MacAddresses macaddresses = new();
+     private string Title = "MAC Addresses";
+    private void Save()
+    {
+        message = "wait...";
+        if (macService.AddUpdate(macaddresses))
+        {
+            message = "Sucessfully added";
+            macaddresses = new();
+            navManager.NavigateTo("/index");
+        }
+        else
+        {
+            message = "Could not saved";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        if (UserId > 0)
+        {
+            Title = "Upage Macaddresses";
+            macaddresses = macService.FindById(UserId);
+        }
+        base.OnInitialized();
+    }
+
+
+
     private List<string> macAddresses;
 
     private async Task GetMacAddresses()
     {
         macAddresses = await Http.GetFromJsonAsync<List<string>>("http://localhost:5094/api/Hos/GetMacAddress/macaddress");
     }
+
+   
 }

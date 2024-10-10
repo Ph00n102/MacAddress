@@ -33,17 +33,50 @@ namespace MacAddress.Migrations
                     b.Property<string>("Agency")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Authen")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeviceProgram")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Facebook")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Finance")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Google")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HosXp")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("InternalProgram")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("KPHIS")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Lab")
+                        .HasColumnType("bit");
+
                     b.Property<string>("MacAdd")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("MicrosoftOffice")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PACS")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Parcel")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
@@ -51,8 +84,14 @@ namespace MacAddress.Migrations
                     b.Property<string>("ProgramInAgency")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("SoftwareDev")
+                        .HasColumnType("bit");
+
                     b.Property<string>("WorkingGroup")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Youtube")
+                        .HasColumnType("bit");
 
                     b.HasKey("MacAddId");
 

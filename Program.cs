@@ -1,5 +1,7 @@
+using BlazorCrud.Services;
 using MacAddress.Components;
 using MacAddress.Data;
+using MacAddress.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +13,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8189") });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("sampleDb"));});
-
+builder.Services.AddTransient<IMacService,MacService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,4 +32,5 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+// app.Urls.Add("http://*:80");
 app.Run();
